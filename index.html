@@ -1,40 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Be My Valentine 💖</title>
-    <style>
-      body {
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💖</title>
+<style>
+    body {
         margin: 0;
         height: 100vh;
         background: linear-gradient(135deg, #ff9a9e, #fad0c4);
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: "Segoe UI", sans-serif;
+        font-family: 'Segoe UI', sans-serif;
         text-align: center;
         color: #fff;
-      }
+    }
 
-      .card {
+    .card {
         background: rgba(255, 255, 255, 0.2);
         padding: 40px;
         border-radius: 20px;
         backdrop-filter: blur(10px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      }
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
 
-      h1 {
+    h1 {
         font-size: 2.5em;
         margin-bottom: 20px;
-      }
+    }
 
-      p {
+    p {
         font-size: 1.2em;
         margin-bottom: 30px;
-      }
+    }
 
-      button {
+    button {
         padding: 15px 30px;
         font-size: 1.2em;
         border: none;
@@ -42,66 +42,74 @@
         cursor: pointer;
         transition: all 0.3s ease;
         margin: 10px;
-      }
+    }
 
-      #yesBtn {
+    #yesBtn {
         background-color: #ff4d6d;
         color: white;
-      }
+    }
 
-      #noBtn {
+    #noBtn {
         background-color: #6c757d;
         color: white;
-      }
+    }
 
-      #yesBtn:hover {
+    #yesBtn:hover {
         background-color: #ff1e4d;
-      }
+    }
 
-      #noBtn:hover {
+    #noBtn:hover {
         background-color: #5a6268;
-      }
+    }
 
-      .result {
+    .result {
         margin-top: 30px;
         font-size: 1.5em;
         color: #fff;
-      }
-    </style>
-  </head>
+    }
+</style>
+</head>
 
-  <body>
-    <div class="card">
-      <h1>💘 Will You Be My Valentine? 💘</h1>
-      <p>
-        You make my ordinary days feel magical ✨<br />
-        Please say yes… my heart is waiting 💓
-      </p>
+<body>
 
-      <div>
+<!-- 🔔 Netlify hidden form -->
+<form name="valentine-response" method="POST" data-netlify="true" hidden>
+    <input type="hidden" name="answer" id="answerInput">
+</form>
+
+<div class="card">
+    <h1>💘 Will You Be My Valentine? 💘</h1>
+    <p>You make my ordinary days feel magical ✨<br>
+       Please say yes… my heart is waiting 💓</p>
+
+    <div>
         <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
         <button id="noBtn" onclick="sayNo()">No 🙈</button>
-      </div>
-
-      <div class="result" id="result"></div>
     </div>
 
-    <script>
-      let yesScale = 1;
+    <div class="result" id="result"></div>
+</div>
 
-      function sayNo() {
-        yesScale += 0.5; // YES becomes double gradually
+<script>
+    let yesScale = 1;
+
+    function sayNo() {
+        yesScale += 0.5;
         document.getElementById("yesBtn").style.transform =
-          "scale(" + yesScale + ")";
-      }
+            "scale(" + yesScale + ")";
+    }
 
-      function sayYes() {
+    function sayYes() {
         document.getElementById("result").innerHTML =
-          "🥰 You said YES! 💕<br>My heart is officially yours 💘";
+            "🥰 You said YES! 💕<br>My heart is officially yours 💘";
 
-        // This is where you "know the user's choice"
-        console.log("User choice: YES");
-      }
-    </script>
-  </body>
+        // Set Netlify form value
+        document.getElementById("answerInput").value = "YES 💖";
+
+        // Submit to Netlify (this notifies you)
+        document.forms["valentine-response"].submit();
+    }
+</script>
+
+</body>
 </html>
