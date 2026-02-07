@@ -103,23 +103,25 @@
 
     // NO button runs away 😈
     noBtn.addEventListener("mouseenter", () => {
-        const moveDistance = 180; // ⬅️ increased (was 40)
+        const moveDistance = 200; // stays big 😈
+        const padding = 20;
     
-        const currentX = noBtn.offsetLeft;
-        const currentY = noBtn.offsetTop;
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
     
-        let newX = currentX + (Math.random() * moveDistance * 2 - moveDistance);
-        let newY = currentY + (Math.random() * moveDistance * 2 - moveDistance);
+        const maxX = window.innerWidth - btnWidth - padding;
+        const maxY = window.innerHeight - btnHeight - padding;
     
-        const padding = 10;
-        newX = Math.max(padding, Math.min(window.innerWidth - noBtn.offsetWidth - padding, newX));
-        newY = Math.max(padding, Math.min(window.innerHeight - noBtn.offsetHeight - padding, newY));
+        let newX = noBtn.offsetLeft + (Math.random() * moveDistance * 2 - moveDistance);
+        let newY = noBtn.offsetTop + (Math.random() * moveDistance * 2 - moveDistance);
+    
+        // 🔒 hard boundaries — cannot leave screen
+        newX = Math.max(padding, Math.min(maxX, newX));
+        newY = Math.max(padding, Math.min(maxY, newY));
     
         noBtn.style.left = newX + "px";
         noBtn.style.top = newY + "px";
     });
-
-
 
     function sayYes() {
         document.getElementById("result").innerHTML =
