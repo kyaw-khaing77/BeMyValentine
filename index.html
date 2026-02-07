@@ -14,6 +14,7 @@
         font-family: 'Segoe UI', sans-serif;
         text-align: center;
         color: #fff;
+        overflow: hidden;
     }
 
     .card {
@@ -40,7 +41,7 @@
         border: none;
         border-radius: 50px;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
         margin: 10px;
     }
 
@@ -52,14 +53,11 @@
     #noBtn {
         background-color: #6c757d;
         color: white;
+        position: fixed; /* allows moving anywhere */
     }
 
     #yesBtn:hover {
         background-color: #ff1e4d;
-    }
-
-    #noBtn:hover {
-        background-color: #5a6268;
     }
 
     .result {
@@ -73,7 +71,6 @@
 <body>
 
 <!-- 🔔 Netlify hidden form -->
-
 <form name="valentine-response"
       method="POST"
       netlify
@@ -83,7 +80,6 @@
   <input type="hidden" name="answer" id="answerInput">
 </form>
 
-
 <div class="card">
     <h1>💘 Will You Be My Valentine? 💘</h1>
     <p>You make my ordinary days feel magical ✨<br>
@@ -91,32 +87,17 @@
 
     <div>
         <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
-        <button id="noBtn" onclick="sayNo()">No 🙈</button>
+        <button id="noBtn">No 🙈</button>
     </div>
 
     <div class="result" id="result"></div>
 </div>
 
 <script>
-    let yesScale = 1;
+    const noBtn = document.getElementById("noBtn");
 
-    function sayNo() {
-        yesScale += 0.5;
-        document.getElementById("yesBtn").style.transform =
-            "scale(" + yesScale + ")";
-    }
-
-    function sayYes() {
-        document.getElementById("result").innerHTML =
-            "🥰 You said YES! 💕<br>My heart is officially yours 💘";
-
-        // Set Netlify form value
-        document.getElementById("answerInput").value = "YES 💖";
-
-        // Submit to Netlify (this notifies you)
-        document.forms["valentine-response"].submit();
-    }
-</script>
-
-</body>
-</html>
+    // NO button escapes 😈
+    noBtn.addEventListener("mouseenter", () => {
+        const padding = 20;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerH
