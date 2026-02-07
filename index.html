@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Be My Valentine 💖</title>
+
 <style>
     body {
         margin: 0;
@@ -23,6 +24,8 @@
         border-radius: 20px;
         backdrop-filter: blur(10px);
         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        position: relative;
+        z-index: 1;
     }
 
     h1 {
@@ -53,7 +56,7 @@
     #noBtn {
         background-color: #6c757d;
         color: white;
-        position: fixed; /* allows moving anywhere */
+        position: fixed;
     }
 
     #yesBtn:hover {
@@ -73,7 +76,6 @@
 <!-- 🔔 Netlify hidden form -->
 <form name="valentine-response"
       method="POST"
-      netlify
       data-netlify="true"
       hidden
       action="/yes.html">
@@ -82,8 +84,10 @@
 
 <div class="card">
     <h1>💘 Will You Be My Valentine? 💘</h1>
-    <p>You make my ordinary days feel magical ✨<br>
-       Please say yes… my heart is waiting 💓</p>
+    <p>
+        You make my ordinary days feel magical ✨<br>
+        Please say yes… my heart is waiting 💓
+    </p>
 
     <div>
         <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
@@ -95,9 +99,30 @@
 
 <script>
     const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
 
-    // NO button escapes 😈
+    // NO button runs away 😈
     noBtn.addEventListener("mouseenter", () => {
         const padding = 20;
         const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-        const maxY = window.innerH
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    });
+
+    function sayYes() {
+        document.getElementById("result").innerHTML =
+            "🥰 You said YES! 💕<br>My heart is officially yours 💘";
+
+        document.getElementById("answerInput").value = "YES 💖";
+
+        document.forms["valentine-response"].submit();
+    }
+</script>
+
+</body>
+</html>
